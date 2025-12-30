@@ -1,4 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
+
 from cinema.models import (
     Genre,
     Actor,
@@ -6,7 +7,16 @@ from cinema.models import (
     Movie,
     MovieSession,
 )
-from cinema.serializers import *
+
+from cinema.serializers import (
+    GenreSerializer,
+    ActorSerializer,
+    CinemaHallSerializer,
+    MovieListSerializer,
+    MovieDetailSerializer,
+    MovieSessionListSerializer,
+    MovieSessionDetailSerializer,
+)
 
 
 class GenreViewSet(ModelViewSet):
@@ -25,7 +35,7 @@ class CinemaHallViewSet(ModelViewSet):
 
 
 class MovieViewSet(ModelViewSet):
-    queryset = Movie.objects.all()
+    queryset = Movie.objects.prefetch_related("genres", "actors")
 
     def get_serializer_class(self):
         if self.action == "list":

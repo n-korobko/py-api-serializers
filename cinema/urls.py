@@ -1,5 +1,11 @@
 from rest_framework.routers import DefaultRouter
-from cinema.views import *
+from cinema.views import (
+    GenreViewSet,
+    ActorViewSet,
+    CinemaHallViewSet,
+    MovieViewSet,
+    MovieSessionViewSet,
+)
 
 router = DefaultRouter()
 router.register("genres", GenreViewSet)
