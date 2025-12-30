@@ -14,8 +14,10 @@ from cinema.serializers import (
     CinemaHallSerializer,
     MovieListSerializer,
     MovieDetailSerializer,
+    MovieCreateSerializer,
     MovieSessionListSerializer,
     MovieSessionDetailSerializer,
+    MovieSessionCreateSerializer,
 )
 
 
@@ -42,17 +44,17 @@ class MovieViewSet(ModelViewSet):
             return MovieListSerializer
         if self.action == "retrieve":
             return MovieDetailSerializer
-        return MovieDetailSerializer
+        return MovieCreateSerializer
 
 
 class MovieSessionViewSet(ModelViewSet):
     queryset = MovieSession.objects.select_related(
         "movie", "cinema_hall"
-    ).all()
+    )
 
     def get_serializer_class(self):
         if self.action == "list":
             return MovieSessionListSerializer
         if self.action == "retrieve":
             return MovieSessionDetailSerializer
-        return MovieSessionDetailSerializer
+        return MovieSessionCreateSerializer
